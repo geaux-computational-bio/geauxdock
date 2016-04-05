@@ -1,0 +1,32 @@
+CONFIG_SUCCESS := 0
+CONFIG_FAILURE := 1
+CONFIG_RV := CONFIG_SUCCESS
+
+# Gencode arguments
+SMS ?= 35 50 52
+
+ifeq ($(SMS),)
+$(info >>> ERROR - no SM architectures have been specified <<<)
+CONFIG_RV := CONFIG_FAILURE
+endif
+
+
+ifeq ($(GENCODE_FLAGS),)
+# Generate SASS code for each SM architecture listed in $(SMS)
+$(foreach sm,$(SMS),$(eval GENCODE_FLAGS1 += -gencode arch=compute_$(sm),code=sm_$(sm)))
+
+# Generate PTX code from the highest SM architecture in $(SMS)
+# to guarantee forward-compatibility
+HIGHEST_SM := $(lastword $(sort $(SMS)))
+ifneq ($(HIGHEST_SM),)
+GENCODE_FLAGS2 += -gencode arch=compute_$(HIGHEST_SM),code=compute_$(HIGHEST_SM)
+endif
+endif
+
+
+
+echo:
+	@echo GENCODE_FLAGS1:   $(GENCODE_FLAGS1)
+	@echo GENCODE_FLAGS2:   $(GENCODE_FLAGS2)
+	@echo CONFIG_RV:        $(CONFIG_RV)
+

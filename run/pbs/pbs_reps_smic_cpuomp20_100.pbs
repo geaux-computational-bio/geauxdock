@@ -1,0 +1,14 @@
+#!/bin/sh
+#PBS -q hybrid
+#PBS -l nodes=1:ppn=20
+#PBS -l walltime=2:00:00
+#PBS -M yfang11@lsu.edu
+
+#export OMP_NUM_THREADS=20
+export OMP_PROC_BIND=true
+export MIC_OMP_PROC_BIND=true
+export MIC_KMP_AFFINITY=SCATTER
+
+cd $PBS_WORKDIR
+./batch_cs_reps.py ../bin/smic_100/cpuomp20_branch_full 1 100 1 1 8
+

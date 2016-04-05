@@ -1,0 +1,50 @@
+HEADERS = $(wildcard *.cuh)
+SRC = $(wildcard *.cu)
+#SRC = $(wildcard stream*.cu)
+#SRC = $(wildcard */*.cu)
+OBJ = $(SRC:.cu=.o)
+EXE = $(SRC:.cu=)
+
+
+#HEADPATH += -Ixx
+#LIBPATH += -Lxx
+#LINKFLAGS += -lxx
+
+
+#CXX_HOST = xx
+#CXXFLAGS_HOST += xx
+
+
+CXX_DEV = nvcc -O2
+
+CXXFLAGS_DEV += -O2
+CXXFLAGS_DEV += -arch=compute_35
+#CXXFLAGS_DEV += -gencode arch=compute_35,code=sm_52
+CXXFLAGS_DEV += -use_fast_math
+CXXFLAGS_DEV += -Xptxas -dlcm=ca
+
+# debugging flags
+#CXXFLAGS_DEV += -lineinfo
+#CXXFLAGS_DEV += -Xptxas -v
+#CXXFLAGS_DEV += -keep --keep-dir tmp -G --source-in-pt
+
+
+
+
+
+all: $(EXE)
+
+% : %.cu
+	$(CXX_DEV) $(CXXFLAGS_DEV)$(HEADPATH) $(LIBPATH) $< -o $@ $(LINKFLAGS)
+	
+echo:
+	@echo $(HEADERS)
+	@echo $(SRC)
+	@echo $(OBJ)
+	@echo $(EXE)
+	@for bin in $(EXE); do echo $$bin; done
+
+clean:
+#	$(RM) $(OBJ)
+	$(RM) $(EXE)
+

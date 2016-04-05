@@ -1,0 +1,36 @@
+#HEADERS = $(wildcard *.h)
+SRC = $(wildcard *.c)
+#SRC = $(wildcard */*.c)
+OBJ = $(SRC:.c=.o)
+EXE = $(SRC:.c=)
+
+
+#HEADPATH += -Ixx
+#LIBPATH += -Lxx
+#LINKFLAGS += -lx
+
+
+CC = gcc
+CFLAGS += -O2
+CFLAGS += -std=c99
+
+
+
+
+all: $(EXE)
+
+
+% : %.cpp
+	$(CC) $(CFLAGS) $(HEADPATH) $(LIBPATH) $< -o $@ $(LINKFLAGS)
+
+echo:
+#	@echo $(HEADERS)
+	@echo $(SRC)
+	@echo $(OBJ)
+	@echo $(EXE)
+	@for bin in $(EXE); do echo $$bin; done
+
+clean:
+	$(RM) $(OBJ)
+	$(RM) $(EXE)
+

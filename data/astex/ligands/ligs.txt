@@ -1,0 +1,3 @@
+1a07C1 /worka/work/yfang11/geauxdock_release3/data/astex/ligands/1a07C1.sdf /worka/work/yfang11/geauxdock_release3/data/astex/ligands/1a07C1-0.8.ff
+1a07C1 /worka/work/yfang11/geauxdock_release3/data/astex/ligands/1a07C1.sdf /worka/work/yfang11/geauxdock_release3/data/astex/ligands/1a07C1-0.8.ff
+1a07C1 /worka/work/yfang11/geauxdock_release3/data/astex/ligands/1a07C1.sdf /worka/work/yfang11/geauxdock_release3/data/astex/ligands/1a07C1-0.8.ff

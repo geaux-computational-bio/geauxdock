@@ -1,0 +1,14 @@
+#!/bin/sh
+#PBS -q hybrid
+#PBS -l nodes=1:ppn=20
+#PBS -l walltime=3:00:00
+#PBS -M yfang11@lsu.edu
+
+#export OMP_NUM_THREADS=20
+export OMP_PROC_BIND=true
+export MIC_OMP_PROC_BIND=true
+export MIC_KMP_AFFINITY=SCATTER
+
+cd $PBS_WORKDIR
+./batch_cs_production.py ../bin/production_run_1000/smic_gpuk20 1 1 1 1 10
+

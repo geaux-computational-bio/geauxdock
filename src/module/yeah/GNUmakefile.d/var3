@@ -1,0 +1,33 @@
+CONFIG_SUCCESS := 0
+CONFIG_FAILURE := 1
+CONFIG_RV := CONFIG_SUCCESS
+
+
+TMP_FILE := /tmp/a.cpp
+
+# Attempt to compile a minimal application linked against a library.
+# If a.out exists, the library is properly set up.
+#$(shell echo "#include \"timer.hpp\"" > $(TMP_FILE); echo "int main() { return 0; }" >> $(TMP_FILE); g++ $(TMP_FILE))
+$(shell echo "#include <yeah/cpp/timer.hpp>" > $(TMP_FILE); echo "int main() { return 0; }" >> $(TMP_FILE); g++ $(TMP_FILE))
+RV := $(shell find a.out 2>/dev/null)
+$(shell rm a.out 2>/dev/null)
+
+
+ifeq ("$(RV)","")
+$(info >>> WARNING - the library is not set up correctly. Please ensure it is set up correctly. <<<)
+CONFIG_RV := CONFIG_FAILURE
+endif
+
+
+check_deps:
+ifeq ($(CONFIG_RV),$(CONFIG_FAILURE))
+	@echo "abord build due to the missing of dependencies"
+else
+	@echo "the build is ready, all dependencies have been met"
+endif
+
+
+echo: check_deps
+	@echo CONFIG_RV:        $(CONFIG_RV)
+
+

@@ -1,0 +1,21 @@
+
+APPROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+#echo $APPROOT
+
+
+if [ -d $APPROOT ]; then
+    export CPATH=$APPROOT:$CPATH
+
+    export C_INCLUDE_PATH=$APPROOT:$C_INCLUDE_PATH
+    export C_INCLUDE_PATH=$APPROOT/nvidia/cuda7example:$C_INCLUDE_PATH
+    #export C_INCLUDE_PATH=$APPROOT/opencl:$C_INCLUDE_PATH
+
+    export CPLUS_INCLUDE_PATH=$APPROOT:$CPLUS_INCLUDE_PATH
+    export CPLUS_INCLUDE_PATH=$APPROOT/nvidia/cuda7example:$C_INCLUDE_PATH
+    #export CPLUS_INCLUDE_PATH=$APPROOT/opencl:$C_INCLUDE_PATH
+
+    export LIBRARY_PATH=$APPROOT/lib:$LIBRARY_PATH
+    export LD_LIBRARY_PATH=$APPROOT/lib:$LD_LIBRARY_PATH
+fi
+
+unset APPROOT

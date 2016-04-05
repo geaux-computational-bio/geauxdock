@@ -1,0 +1,23 @@
+OBJ = ./inputs/a.txt ./inputs/b.txt
+EXE = ./inputs/a.out
+
+
+all: build
+build: $(EXE)
+
+
+$(EXE): $(OBJ)
+	@echo cc *.o -o a.out
+
+%.o: %.c
+	@echo cc -c a.c
+
+%.o: %.cu
+	@echo nvcc -c b.cu
+
+run: build
+	@echo ./$(EXE)
+
+clean:
+	@echo rm xxx
+
